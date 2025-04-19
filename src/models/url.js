@@ -15,5 +15,6 @@ const urlSchema = new mongoose.Schema({
     timestamps: true,
 })
 
-const UrlModel = mongoose.model("Url", urlSchema)
+// Check if the model exists before creating it
+const UrlModel = mongoose.models.Url || mongoose.model("Url", urlSchema)
 export default UrlModel
