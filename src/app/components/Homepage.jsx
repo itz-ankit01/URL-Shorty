@@ -1,32 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-
+import toast, { Toaster } from 'react-hot-toast';
+import { shortenUrl } from '../serverActions/urlServerActions';
 export default function HomePage() {
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        const formData = new FormData(e.target)
-        const originalUrl = formData.get('originalUrl')
-        
-        // Call the API to shorten the URL
-        const response = await fetch('/api/shorten', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ originalUrl }),
-        })
-        
-        if (response.ok) {
-            const data = await response.json()
-            console.log('Shortened URL:', data.shortUrl)
-            // Handle success (e.g., show a success message or redirect)
-        } else {
-            console.error('Error shortening URL')
-            // Handle error (e.g., show an error message)
-        }
-    }
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -45,7 +23,7 @@ export default function HomePage() {
             </h1>
             
             {/* URL Input Form */}
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-6" action={shortenUrl}  method="POST">
                 <div className="relative">
                     <input
                         type="text"
@@ -69,9 +47,10 @@ export default function HomePage() {
                         <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                 </button>
+                <Toaster />
             </form>
             <div className="mt-8 text-center">
-              <Link href="/urls" className="inline-flex items-center px-6 py-3 border-2 border-white/30 hover:border-white/50 text-white font-medium rounded-xl transition-all duration-300 group">
+              <Link href="/urls" prefetch={true} className="inline-flex items-center px-6 py-3 border-2 border-white/30 hover:border-white/50 text-white font-medium rounded-xl transition-all duration-300 group">
                 <span>View All Shortened URLs</span>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />

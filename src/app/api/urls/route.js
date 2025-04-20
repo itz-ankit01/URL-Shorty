@@ -1,25 +1,13 @@
+// pages/api/urls/route.js or /route.ts
 import connectDB from "@/config/db";
 import urlShortnerService from "@/services/url-shorten-service";
 import { NextResponse } from "next/server";
-import { cache } from "react";
 
-const fetchUrls = cache(async () => {
+export async function GET() {
     try {
         await connectDB();
         const shortnerService = new urlShortnerService();
         const urls = await shortnerService.getAllUrls();
-        return urls;
-    } catch (error) {
-        console.error('Error fetching URLs:', error);
-        throw error;
-    }
-});
-
-export async function GET() {
-    try {
-        console.log('Fetching all urls...');
-        const urls = await fetchUrls();
-        console.log('Fetched URLs:', urls);
 
         const response = NextResponse.json({ urls }, { status: 200 });
         response.headers.set(

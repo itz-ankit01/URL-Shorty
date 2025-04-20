@@ -1,4 +1,4 @@
-
+import Link from "next/link";
 
 async function fetchUrls() {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/urls`, {
@@ -51,7 +51,17 @@ export default async function UrlLists() {
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                         All your links in one <span className="font-semibold text-blue-600">dashboard</span> 
                     </p>
-                    <div className="mt-8 flex justify-center">
+                    
+                    <div className="mt-8 flex justify-center gap-4">
+                        <Link 
+                            href="/"
+                            className="px-6 py-2 bg-gradient-to-r from-purple-100 to-blue-100 hover:from-purple-200 hover:to-blue-200 rounded-full shadow-md border border-gray-200 flex items-center transition-all duration-300 hover:shadow-lg"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-purple-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                            </svg>
+                            <span className="text-sm font-medium text-gray-700">Go To Home</span>
+                        </Link>
                         <div className="px-6 py-2 bg-white rounded-full shadow-md border border-gray-200 flex items-center">
                             <span className="w-3 h-3 bg-green-400 rounded-full mr-2 animate-pulse"></span>
                             <span className="text-sm font-medium text-gray-700">
